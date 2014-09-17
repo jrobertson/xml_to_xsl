@@ -2,15 +2,15 @@
 
     require 'xml_to_xsl'
 
-    xml = "&lt;doc&gt;
-      &lt;klass name='SimpleNumber'&gt;
-        &lt;def name='initialize' scope='private'&gt;&lt;/def&gt;
-        &lt;def name='add' scope='public'&gt;&lt;/def&gt;
-        &lt;def name='multiply' scope='public'&gt;&lt;/def&gt;
-        &lt;def name='divide' scope='private'&gt;&lt;/def&gt;
-        &lt;def name='square' scope='protected'&gt;&lt;/def&gt;
-      &lt;/klass&gt;
-    &lt;/doc&gt;"
+    xml = "<doc>
+      <klass name='SimpleNumber'>
+        <def name='initialize' scope='private'></def>
+        <def name='add' scope='public'></def>
+        <def name='multiply' scope='public'></def>
+        <def name='divide' scope='private'></def>
+        <def name='square' scope='protected'></def>
+      </klass>
+    </doc>"
 
     puts XMLToXSL.new(xml).to_xsl
 
