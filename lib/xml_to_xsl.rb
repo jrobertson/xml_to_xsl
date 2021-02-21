@@ -2,21 +2,16 @@
 
 # file: xml_to_xsl.rb
 
-require 'rexml/document'
-
+require 'rexle'
 
 
 class XMLToXSL
 
-  include REXML
-
   attr_reader :to_xsl
-
 
   def initialize(xml)
 
-    doc = Document.new(xml)
-
+    doc = Rexle.new(xml)
 
   @to_xsl = "<xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform'"\
   " version='1.0'>
@@ -33,7 +28,6 @@ class XMLToXSL
 </xsl:stylesheet>"
 
   end
-
   
   private
 
@@ -48,7 +42,7 @@ class XMLToXSL
     node.elements.each do |child| 
 
 
-      if child.length > 1 
+      if child.children.length > 1 
 
         r << build_template(child)
 
@@ -65,9 +59,7 @@ class XMLToXSL
     end
     r.join
 
-  end
-
-      
+  end      
 
   def build_template(element)
 
@@ -80,10 +72,7 @@ class XMLToXSL
 
   end
 
-
-
   def build_value(element,parent)
-
 
   "\n
     <xsl:element name='#{parent.name}'>
@@ -99,15 +88,16 @@ class XMLToXSL
 #{write_attributes(element.attributes).join("\n")}
       <xsl:value-of select='.' />"
 
-
   end
 
   def write_attributes(attr)
+    
     attr.map do |key, val|
       "      <xsl:attribute name='#{key}'>
         <xsl:value-of select='@#{key}'/>
       </xsl:attribute>"
     end
+    
   end
 
 end
